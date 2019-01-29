@@ -1,0 +1,37 @@
+{
+    "name": "开发辅助工具集合",
+    "description": "开发辅助工具集合",
+    "version": "1.0",
+    "manifest_version": 2,
+    "browser_action": {
+        "default_popup": "index.html",
+        "default_icon": "img/logo.png"
+    },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+D",
+                "mac": "MacCtrl+Shift+D"
+            },
+            "description": "打开工具"
+        }
+    },
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "permissions": [
+        "clipboardWrite",
+        "clipboardRead",
+        "contextMenus",
+        "tabs",
+        "notifications",
+        "webRequest",
+        "webRequestBlocking",
+        "storage",
+        "http://*/*",
+        "https://*/*"
+    ],
+    "omnibox": {
+        "keyword": "lea"
+    },
+    "default_locale": "zh_CN",
+    "devtools_page": "index.html"
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开发工具集</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="layui-tab layui-tab-brief" lay-filter="app">
+            <ul class="layui-tab-title">
+                <li class="layui-this">二维码生成</li>
+                <li>二维码解析</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form-item ">
+                        <div class="qrcode" id="qrcode-canvas"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <textarea id="text" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <textarea id="qrcode-text" placeholder="请输入图片地址解析或点击上传图片后解析" class="layui-textarea" style="height:80px;min-height:80px;"></textarea>
+                    </div>
+                    <div class="layui-form-item">
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" id="qrcode-button">解析</button>
+                        <button class="layui-btn layui-btn-primary layui-btn-sm" id="upload-qrcode"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                    </div>
+                    <div class="layui-form-item">
+                        <textarea type="text" id="text-result" class="layui-textarea" placeholder="解析结果" style="height:80px;min-height:80px;"></textarea>
+                    </div>
+                    <div class="layui-form-item" style="display:none">
+                        <div class="qrcode" id="qrcode-img"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./layui/layui.js"></script>
+    <script src="./js/reqrcode.min.js"></script>
+    <script src="./js/qrcode.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
