@@ -13,8 +13,8 @@
     <div class="main">
         <div class="layui-tab layui-tab-brief" lay-filter="app">
             <ul class="layui-tab-title">
-                <li class="layui-this">二维码生成</li>
-                <li>二维码解析</li>
+                <li class="layui-this" lay-id="1">二维码生成</li>
+                <li lay-id="2">二维码解析</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
@@ -43,6 +43,7 @@
             </div>
         </div>
     </div>
+    <div id="clipboard_text"></div>
     <script src="./js/jquery-3.3.1.min.js"></script>
     <script src="./layui/layui.js"></script>
     <script src="./js/reqrcode.min.js"></script>

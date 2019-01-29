@@ -15,6 +15,7 @@ body {
     background: #fff;
     border-radius: 4px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .layui-tab-title li {

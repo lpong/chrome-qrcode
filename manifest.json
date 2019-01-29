@@ -21,8 +21,6 @@
         "clipboardWrite",
         "clipboardRead",
         "contextMenus",
-        "tabs",
-        "notifications",
         "webRequest",
         "webRequestBlocking",
         "storage",
@@ -30,8 +28,7 @@
         "https://*/*"
     ],
     "omnibox": {
-        "keyword": "lea"
+        "keyword": "tools"
     },
-    "default_locale": "zh_CN",
     "devtools_page": "index.html"
 }
