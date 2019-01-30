@@ -37,7 +37,7 @@
          $('#qrcode-img').html('');
          $('#qrcode-img').closest('.layui-form-item').hide();
          var url = $('#qrcode-text').val();
-         window.localStorage.setItem('qrcode_text', url);
+         localStorage.setItem('qrcode_text', url);
          $.get(url, function () {
              $('#qrcode-img').html('<img src="' + url + '">');
              $('#qrcode-img').closest('.layui-form-item').show();
@@ -91,7 +91,7 @@
 
      var data = localStorage.getItem('qrcode_text');
      if (data) {
-         $('#qrcode-text').val();
+         $('#qrcode-text').val(data);
          changeTextArea();
      }
  });
