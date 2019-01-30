@@ -24,7 +24,9 @@
     "permissions": [
         "clipboardWrite",
         "clipboardRead",
-        "storage"
+        "storage",
+        "tabs"
+
     ],
     "omnibox": {
         "keyword": "qrcode"

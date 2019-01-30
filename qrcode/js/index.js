@@ -8,25 +8,30 @@
          localStorage.setItem('last_qrcode_extention', $(this).attr('lay-id'));
      });
 
-     var url = window.location.href;
-     if (typeof chrome.tabs != 'undefined') {
-         chrome.tabs.getSelected(null, function (tab) {
-             url = tab.url;
-             $('#text').val(url);
+     //初始化二维码生成
+     var init = function (url) {
+        $('#text').val(url);
+         var obj = new QRCode('qrcode-canvas', {
+             text: url,
+             width: 640,
+             height: 640,
+             correctLevel: QRCode.CorrectLevel.H
+         });
+
+         $(document).on('input propertychange', '#text', function () {
+             var text = $('#text').val();
+             obj.clear();
+             obj.makeCode(text);
          });
      }
-     var obj = new QRCode('qrcode-canvas', {
-         text: url,
-         width: 640,
-         height: 640,
-         correctLevel: QRCode.CorrectLevel.H
-     });
 
-     $(document).on('input propertychange', '#text', function () {
-         var text = $('#text').val();
-         obj.clear();
-         obj.makeCode(text);
-     });
+     if (typeof chrome.tabs != 'undefined') {
+         chrome.tabs.getSelected(null, function (tab) {
+             init(tab.url);
+         });
+     } else {
+         init(window.location.href);
+     }
 
      //解析
      qrcode.callback = function (text) {
@@ -39,8 +44,8 @@
          qrcode.decode(url) || '图片无法识别';
      });
 
-     $('#upload-clear').click(function(){
-         localStorage.setItem('qrcode_text','');
+     $('#upload-clear').click(function () {
+         localStorage.setItem('qrcode_text', '');
          $('#qrcode-text').val('');
          changeTextArea();
      });
