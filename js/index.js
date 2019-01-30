@@ -1,15 +1,12 @@
  //一般直接写在一个js文件中
  layui.use(['element', 'upload'], function () {
      var element = layui.element,
+         $ = layui.$,
          layer = layui.layer;
 
      element.on('tab(app)', function () {
          localStorage.setItem('last_qrcode_extention', $(this).attr('lay-id'));
      });
-
-     //获取上次选中
-     var last_lay_id = localStorage.getItem('last_qrcode_extention') || 1;
-     element.tabChange('app', last_lay_id);
 
      var obj = new QRCode(document.getElementById("qrcode-canvas"), {
          text: window.location.href,
@@ -18,31 +15,11 @@
          correctLevel: QRCode.CorrectLevel.H
      });
 
-     //访问粘贴板
-     var paste = function () {
-         var textarea = $('<textarea></textarea>');
-         $("#clipboard_text").html(textarea);
-         textarea[0].select();
-         document.execCommand('paste');
-         var string = $.trim(textarea.val());
-         $('#clipboard_text').empty();
-         return string;
-     }
-
-
-     $('#text').on('input propertychange', function () {
+     $(document).on('input propertychange', '#text', function () {
          var text = $('#text').val();
          obj.clear();
          obj.makeCode(text);
      });
-     $('#text').on('click', function () {
-         $(this).select();
-         document.execCommand('copy');
-         layer.msg("结果已复制", {
-             time: 1000
-         });
-     });
-
 
      //解析
      qrcode.callback = function (text) {
@@ -55,25 +32,22 @@
          qrcode.decode(url) || '图片无法识别';
      });
 
-     $('#qrcode-text').on('input propertychange', function (e) {
+     //teatarea 变化事件
+     var changeTextArea = function () {
          $('#qrcode-img').html('');
          $('#qrcode-img').closest('.layui-form-item').hide();
-         var url = $(this).val();
+         var url = $('#qrcode-text').val();
+         window.localStorage.setItem('qrcode_text', url);
          $.get(url, function () {
              $('#qrcode-img').html('<img src="' + url + '">');
              $('#qrcode-img').closest('.layui-form-item').show();
              $('#qrcode-button').click();
          });
-     });
+     }
+     $(document).on('input propertychange', '#qrcode-text', changeTextArea);
 
-     $('#text-result').on('click', function () {
-         $(this).select();
-         document.execCommand('copy');
-         layer.msg("结果已复制", {
-             time: 1000
-         });
-     });
-     $('#qrcode-text').on('click', function () {
+     //双击复制
+     $('.layui-textarea').dblclick(function () {
          $(this).select();
          document.execCommand('copy');
          layer.msg("结果已复制", {
@@ -89,23 +63,35 @@
          auto: false,
          choose: function (obj) {
              obj.preview(function (index, file, result) {
-                 $('#qrcode-img').html('<img src="' + result + '">');
+                 //$('#qrcode-img').html('<img src="' + result + '">');
                  $('#qrcode-text').val(result);
-                 $('#qrcode-button').click();
-                 $('#qrcode-img').closest('.layui-form-item').show();
+                 changeTextArea();
              });
          }
      });
 
-     //禁用右键
-     document.oncontextmenu = function () {
-         return false
+     document.addEventListener("error", function (e) {
+         var elem = e.target;
+         if (elem.tagName.toLowerCase() == 'img') {
+             $(elem).remove();
+         }
+     }, true);
+
+     //获取上次选中
+     var last_lay_id = localStorage.getItem('last_qrcode_extention') || 1;
+     if (last_lay_id == 2) {
+         element.tabChange('app', last_lay_id);
      }
 
-     var text = paste();
-     if (!text) {
-         text = window.location.href;
+     if (typeof chrome.tabs != 'undefined') {
+         chrome.tabs.getSelected(null, function (tab) {
+             $('#text').val(tab.url);
+         });
      }
-     $('#text').val(text);
-     $('#qrcode-text').val(paste());
+
+     var data = localStorage.getItem('qrcode_text');
+     if (data) {
+         $('#qrcode-text').val();
+         changeTextArea();
+     }
  });
