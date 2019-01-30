@@ -7,6 +7,10 @@
         "default_popup": "index.html",
         "default_icon": "img/logo.png"
     },
+    "background": {
+        "scripts": ["js/background.js"]
+    },
+    "homepage_url": "https://github.com/lea21st/chrome-qrcode",
     "commands": {
         "_execute_browser_action": {
             "suggested_key": {
@@ -20,15 +24,9 @@
     "permissions": [
         "clipboardWrite",
         "clipboardRead",
-        "contextMenus",
-        "webRequest",
-        "webRequestBlocking",
-        "storage",
-        "http://*/*",
-        "https://*/*"
+        "storage"
     ],
     "omnibox": {
-        "keyword": "tools"
-    },
-    "devtools_page": "index.html"
+        "keyword": "qrcode"
+    }
 }

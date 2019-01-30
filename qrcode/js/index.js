@@ -8,7 +8,15 @@
          localStorage.setItem('last_qrcode_extention', $(this).attr('lay-id'));
      });
 
+     var url = window.location.href;
+     if (typeof chrome.tabs != 'undefined') {
+         chrome.tabs.getSelected(null, function (tab) {
+             url = tab.url;
+             $('#text').val(url);
+         });
+     }
      var obj = new QRCode('qrcode-canvas', {
+         text: url,
          width: 640,
          height: 640,
          correctLevel: QRCode.CorrectLevel.H
@@ -29,6 +37,12 @@
      $('#qrcode-button').click(function (e) {
          var url = $('#qrcode-text').val();
          qrcode.decode(url) || '图片无法识别';
+     });
+
+     $('#upload-clear').click(function(){
+         localStorage.setItem('qrcode_text','');
+         $('#qrcode-text').val('');
+         changeTextArea();
      });
 
      //teatarea 变化事件
@@ -80,14 +94,6 @@
      var last_lay_id = localStorage.getItem('last_qrcode_extention') || 1;
      if (last_lay_id == 2) {
          element.tabChange('app', last_lay_id);
-     }
-
-     if (typeof chrome.tabs != 'undefined') {
-         chrome.tabs.getSelected(null, function (tab) {
-             obj.clear();
-             obj.makeCode(text);
-             $('#text').val(tab.url);
-         });
      }
 
      var data = localStorage.getItem('qrcode_text');
