@@ -8,7 +8,7 @@
          localStorage.setItem('last_qrcode_extention', $(this).attr('lay-id'));
      });
 
-     var obj = new QRCode(document.getElementById("qrcode-canvas"), {
+     var obj = new QRCode('qrcode-canvas', {
          width: 640,
          height: 640,
          correctLevel: QRCode.CorrectLevel.H
@@ -84,6 +84,8 @@
 
      if (typeof chrome.tabs != 'undefined') {
          chrome.tabs.getSelected(null, function (tab) {
+             obj.clear();
+             obj.makeCode(text);
              $('#text').val(tab.url);
          });
      }
