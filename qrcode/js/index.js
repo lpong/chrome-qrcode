@@ -9,7 +9,6 @@
      });
 
      var obj = new QRCode(document.getElementById("qrcode-canvas"), {
-         text: '',
          width: 640,
          height: 640,
          correctLevel: QRCode.CorrectLevel.H
