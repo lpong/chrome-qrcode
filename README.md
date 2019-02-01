@@ -1,8 +1,8 @@
 谷歌浏览器二维码生成和解析插件
 ===============
 **暂时未上架谷歌应用商店，请手动在浏览器打包后安装；**
-快捷键
-Mac/Window: `Ctrl+Shift+D`
+
+快捷键 Mac/Window: `Ctrl+Shift+D`
 
 双击`textarea`快速复制
 
